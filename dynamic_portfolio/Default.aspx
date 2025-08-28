@@ -138,12 +138,13 @@
                     <span></span>
                     <span></span>
                 </div>
-                <div class="menu-links">
+                <!-- FIX: wrap li items inside a UL -->
+                <ul class="menu-links">
                     <li><a href="#about" onclick="toggleMenu()">About</a></li>
                     <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
                     <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
                     <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-                </div>
+                </ul>
             </div>
         </nav>
         <section id="profile">
