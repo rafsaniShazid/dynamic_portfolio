@@ -215,7 +215,6 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Data\PortfolioContext.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -233,19 +232,6 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202508251852458_InitialCreate.cs" />
-    <Compile Include="Migrations\202508251852458_InitialCreate.Designer.cs">
-      <DependentUpon>202508251852458_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202508281924363_InitialCreate1.cs" />
-    <Compile Include="Migrations\202508281924363_InitialCreate1.Designer.cs">
-      <DependentUpon>202508281924363_InitialCreate1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202508281929141_InitialCreate2.cs" />
-    <Compile Include="Migrations\202508281929141_InitialCreate2.Designer.cs">
-      <DependentUpon>202508281929141_InitialCreate2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -275,6 +261,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="App_GlobalResources\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -286,17 +273,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202508251852458_InitialCreate.resx">
-      <DependentUpon>202508251852458_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202508281924363_InitialCreate1.resx">
-      <DependentUpon>202508281924363_InitialCreate1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202508281929141_InitialCreate2.resx">
-      <DependentUpon>202508281929141_InitialCreate2.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
