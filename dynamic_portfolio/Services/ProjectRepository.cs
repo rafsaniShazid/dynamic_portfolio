@@ -57,7 +57,7 @@ namespace dynamic_portfolio.Services
             {
                 db.Database.CreateIfNotExists();
 
-                if (!db.Projects.Any())
+                    if (!db.Projects.Any())
                 {
                     db.Projects.Add(new Project
                     {

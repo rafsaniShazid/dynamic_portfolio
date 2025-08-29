@@ -22,7 +22,21 @@ namespace dynamic_portfolio
             {
                 lblStatus.Text = "You are logged in as admin.";
                 BindGrid();
+                LoadProfile();
             }
+        }
+
+        private void LoadProfile()
+        {
+            var profile = ProfileRepository.GetProfile();
+            txtProfileName.Text = profile.Name;
+            txtProfileRole.Text = profile.Role;
+            txtProfileEmail.Text = profile.Email;
+            txtLinkedInUrl.Text = profile.LinkedInUrl;
+            txtGithubUrl.Text = profile.GithubUrl;
+            txtExperience.Text = profile.ExperienceYears;
+            txtEducation.Text = profile.Education;
+            txtAboutDescription.Text = profile.AboutDescription;
         }
 
         private void BindGrid()
@@ -31,15 +45,14 @@ namespace dynamic_portfolio
             gvProjects.DataBind();
         }
 
-        private string SaveUploadedFile(FileUpload fileUpload)
+        private string SaveUploadedFile(FileUpload fileUpload, string prefix = "file")
         {
             if (fileUpload == null || !fileUpload.HasFile) return null;
 
             try
             {
-                // Create unique filename
                 var extension = Path.GetExtension(fileUpload.FileName);
-                var fileName = $"project-{DateTime.Now:yyyyMMddHHmmss}{extension}";
+                var fileName = $"{prefix}-{DateTime.Now:yyyyMMddHHmmss}{extension}";
                 var assetsPath = Server.MapPath("~/assets/");
                 
                 if (!Directory.Exists(assetsPath))
@@ -56,6 +69,36 @@ namespace dynamic_portfolio
             {
                 return null;
             }
+        }
+
+        protected void btnUpdateProfile_Click(object sender, EventArgs e)
+        {
+            var currentProfile = ProfileRepository.GetProfile();
+            
+            // Handle file uploads
+            var profileImagePath = SaveUploadedFile(fuProfileImage, "profile") ?? currentProfile.ProfileImagePath;
+            var aboutImagePath = SaveUploadedFile(fuAboutImage, "about") ?? currentProfile.AboutImagePath;
+            var resumePath = SaveUploadedFile(fuResume, "resume") ?? currentProfile.ResumePath;
+
+            var profile = new Profile
+            {
+                Id = currentProfile.Id,
+                Name = txtProfileName.Text?.Trim(),
+                Role = txtProfileRole.Text?.Trim(),
+                ProfileImagePath = profileImagePath,
+                AboutImagePath = aboutImagePath,
+                ResumePath = resumePath,
+                AboutDescription = txtAboutDescription.Text?.Trim(),
+                ExperienceYears = txtExperience.Text?.Trim(),
+                Education = txtEducation.Text?.Trim(),
+                LinkedInUrl = txtLinkedInUrl.Text?.Trim(),
+                GithubUrl = txtGithubUrl.Text?.Trim(),
+                Email = txtProfileEmail.Text?.Trim()
+            };
+
+            ProfileRepository.UpdateProfile(profile);
+            lblStatus.Text = "Profile updated successfully!";
+            lblStatus.CssClass = "success";
         }
 
         protected void gvProjects_RowEditing(object sender, GridViewEditEventArgs e)
@@ -78,15 +121,14 @@ namespace dynamic_portfolio
 
             if (existingProject == null) return;
 
-            // Handle image upload for edit
             var fuEditImage = (FileUpload)row.FindControl("fuEditImage");
-            var newImagePath = SaveUploadedFile(fuEditImage);
+            var newImagePath = SaveUploadedFile(fuEditImage, "project") ?? existingProject.ImagePath;
 
             var project = new Project
             {
                 Id = id,
                 Title = ((TextBox)row.FindControl("txtTitle"))?.Text?.Trim(),
-                ImagePath = newImagePath ?? existingProject.ImagePath, // Keep existing if no new image
+                ImagePath = newImagePath,
                 ImageCss = ((TextBox)row.FindControl("txtImageCss"))?.Text?.Trim(),
                 Alt = ((TextBox)row.FindControl("txtAlt"))?.Text?.Trim(),
                 GithubUrl = ((TextBox)row.FindControl("txtGithubUrl"))?.Text?.Trim(),
@@ -111,7 +153,7 @@ namespace dynamic_portfolio
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            var imagePath = SaveUploadedFile(fuAddImage);
+            var imagePath = SaveUploadedFile(fuAddImage, "project");
 
             var project = new Project
             {
@@ -128,7 +170,6 @@ namespace dynamic_portfolio
             {
                 ProjectRepository.Add(project);
 
-                    // Clear form
                 txtAddTitle.Text = txtAddImageCss.Text = txtAddAlt.Text = 
                     txtAddGithubUrl.Text = txtAddLiveUrl.Text = txtAddDescription.Text = string.Empty;
 

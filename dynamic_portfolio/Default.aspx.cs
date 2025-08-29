@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
 using dynamic_portfolio.Services;
@@ -13,6 +12,7 @@ namespace dynamic_portfolio
             if (!IsPostBack)
             {
                 BindProjects();
+                BindProfile();
             }
         }
 
@@ -21,6 +21,37 @@ namespace dynamic_portfolio
             var projects = ProjectRepository.GetAll();
             rptProjects.DataSource = projects;
             rptProjects.DataBind();
+        }
+
+        private void BindProfile()
+        {
+            var profile = ProfileRepository.GetProfile();
+
+            // Navigation
+            litNavName.Text = profile.Name;
+            litMobileNavName.Text = profile.Name;
+
+            // Profile section
+            imgProfile.ImageUrl = ResolveUrl(profile.ProfileImagePath);
+            litProfileName.Text = profile.Name;
+            litRole.Text = profile.Role;
+            lnkResume.NavigateUrl = ResolveUrl(profile.ResumePath);
+            lnkLinkedIn.NavigateUrl = profile.LinkedInUrl;
+            lnkGithub.NavigateUrl = profile.GithubUrl;
+
+            // About section
+            imgAbout.ImageUrl = ResolveUrl(profile.AboutImagePath);
+            litExperience.Text = profile.ExperienceYears?.Replace("\n", "<br />") ?? "";
+            litEducation.Text = profile.Education;
+            litAboutDescription.Text = profile.AboutDescription?.Replace("\n", "<br />") ?? "";
+
+            // Contact section
+            lnkEmail.NavigateUrl = "mailto:" + profile.Email;
+            lnkEmail.Text = profile.Email;
+            lnkContactLinkedIn.NavigateUrl = profile.LinkedInUrl;
+
+            // Footer
+            litFooterName.Text = profile.Name;
         }
 
         protected void btnSend_Click(object sender, EventArgs e)
@@ -38,9 +69,9 @@ namespace dynamic_portfolio
             try
             {
                 var appData = Server.MapPath("~/App_Data");
-                if (!Directory.Exists(appData)) System.IO.Directory.CreateDirectory(appData);
-                var file = System.IO.Path.Combine(appData, "messages.txt");
-                System.IO.File.AppendAllText(file, entry + "----" + Environment.NewLine);
+                if (!Directory.Exists(appData)) Directory.CreateDirectory(appData);
+                var file = Path.Combine(appData, "messages.txt");
+                File.AppendAllText(file, entry + "----" + Environment.NewLine);
 
                 lblResult.Text = "Thanks! Your message has been sent.";
                 lblResult.CssClass = "success";

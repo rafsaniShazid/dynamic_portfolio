@@ -120,7 +120,7 @@
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
         <nav id="desktop-nav">
-            <div class="logo">Md. Rafsani Shazid</div>
+            <div class="logo"><asp:Literal ID="litNavName" runat="server" /></div>
             <div>
                 <ul class="nav-links">
                     <li><a href="#about">About</a></li>
@@ -131,14 +131,13 @@
             </div>
         </nav>
         <nav id="hamburger-nav">
-            <div class="logo">Md. Rafsani Shazid</div>
+            <div class="logo"><asp:Literal ID="litMobileNavName" runat="server" /></div>
             <div class="hamburger-menu">
                 <div class="hamburger-icon" onclick="toggleMenu()">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
-                <!-- FIX: wrap li items inside a UL -->
                 <ul class="menu-links">
                     <li><a href="#about" onclick="toggleMenu()">About</a></li>
                     <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
@@ -149,25 +148,27 @@
         </nav>
         <section id="profile">
             <div class="section__pic-container">
-                <img src="./assets/profile-pic.png" alt="Profile picture of Md. Rafsani Shazid">
+                <asp:Image ID="imgProfile" runat="server" alt="Profile picture" />
             </div>
             <div class="section__text">
                 <p class="section__text__p1">Hello, I'm</p>
-                <h1 class="title">Md. Rafsani Shazid</h1>
+                <h1 class="title"><asp:Literal ID="litProfileName" runat="server" /></h1>
                 <p class="section__text__p2">
-                    <span class="animated-text" id="role-text">Android Developer</span>
+                    <span class="animated-text" id="role-text"><asp:Literal ID="litRole" runat="server" /></span>
                 </p>
                 <div class="btn-container">
-                    <button class="btn btn-color-1" onclick="window.open('./assets/resume.pdf')">
-                        Download CV</button>
+                    <asp:HyperLink ID="lnkResume" runat="server" CssClass="btn btn-color-1" Target="_blank">
+                        Download CV</asp:HyperLink>
                     <button class="btn btn-color-2" onclick="location.href='./#contact'">
                         Contact Info</button>
                 </div>
                 <div id="social-container">
-                    <img src="./assets/linkedin.png" alt="My linkedin profile" class="icon" onclick="location.href=
-                    'https://www.linkedin.com/in/md-rafsani-shazid-393230289/'">
-                    <img src="./assets/github.png" alt="My github profile" class="icon" onclick="location.href=
-                    'https://github.com/rafsaniShazid'">
+                    <asp:HyperLink ID="lnkLinkedIn" runat="server" Target="_blank">
+                        <img src="./assets/linkedin.png" alt="My linkedin profile" class="icon" />
+                    </asp:HyperLink>
+                    <asp:HyperLink ID="lnkGithub" runat="server" Target="_blank">
+                        <img src="./assets/github.png" alt="My github profile" class="icon" />
+                    </asp:HyperLink>
                 </div>
             </div>
         </section>
@@ -176,32 +177,23 @@
             <h1 class="title">About Me</h1>
             <div class="section-container">
                 <div class="section__pic-container">
-                    <img src="./assets/about-pic.png" alt="profile picture" class="about-pic" />
+                    <asp:Image ID="imgAbout" runat="server" alt="profile picture" CssClass="about-pic" />
                 </div>
                 <div class="about-details-container">
                     <div class="about-containers">
                         <div class="details-container">
                             <img src="./assets/experience.png" alt="experience-icon" class="icon" />
                             <h3>Experience</h3>
-                            <p>2+ years in Development<br>
-                                1+ year in SEO</p>
+                            <p><asp:Literal ID="litExperience" runat="server" /></p>
                         </div>
                         <div class="details-container">
                             <img src="./assets/education.png" alt="education-icon" class="icon" />
                             <h3>Education</h3>
-                            <p>Bsc in computer science and engineering<br>
-                            </p>
+                            <p><asp:Literal ID="litEducation" runat="server" /></p>
                         </div>
                     </div>
                     <div class="text-container">
-                        <p>
-                            I'm a CS student from Bangladesh with a passion for technology, problem-solving,
-                            and lifelong learning. I specialize in C++ and have experience in mobile app and web
-                            development.<br>
-                            Currently, I’m diving into AI and Machine Learning, aiming to contribute to impactful research.
-                            Outside of tech, I enjoy football, staying active, watching movies and connecting with friends.
-                            I'm always eager to learn, collaborate, and take on new challenges.
-                        </p>
+                        <p><asp:Literal ID="litAboutDescription" runat="server" /></p>
                     </div>
                 </div>
             </div>
@@ -336,13 +328,11 @@
             <div class="contact-info-upper-container">
                 <div class="contact-info-container">
                     <img src="./assets/email.png" alt="Email icon" class="icon email-icon" />
-                    <p><a href="mailto:rafsanishazid@gmail.com">
-                            rafsanishazid@gmail.com</a></p>
+                    <p><asp:HyperLink ID="lnkEmail" runat="server" /></p>
                 </div>
                 <div class="contact-info-container">
                     <img src="./assets/linkedin.png" alt="Linkedin icon" class="icon contact-icon" />
-                    <p><a href="https://www.linkedin.com/in/md-rafsani-shazid-393230289/">
-                            LinkedIn</a></p>
+                    <p><asp:HyperLink ID="lnkContactLinkedIn" runat="server" Target="_blank">LinkedIn</asp:HyperLink></p>
                 </div>
             </div>
 
@@ -401,7 +391,7 @@
                     </ul>
                 </div>
             </nav>
-            <p>Copyright &#169; 2025 Md. Rafsani Shazid.
+            <p>Copyright &#169; 2025 <asp:Literal ID="litFooterName" runat="server" />.
                 All Rights Reserved </p>
         </footer>
     </form>

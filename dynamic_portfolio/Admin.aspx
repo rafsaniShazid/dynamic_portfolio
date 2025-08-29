@@ -20,6 +20,7 @@
         .btn.btn-color-1 { background:#4f46e5; color:#fff; }
         .btn.btn-color-2 { background:#e5e7eb; color:#111827; }
         .file-upload { padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 6px; }
+        .profile-section { margin-top: 32px; }
     </style>
 </head>
 <body>
@@ -30,6 +31,48 @@
             <div class="admin-actions">
                 <asp:Button ID="btnLogout" runat="server" Text="Log out" CssClass="btn btn-color-1" OnClick="btnLogout_Click" />
                 <a class="btn btn-color-2" href="Default.aspx">Back to site</a>
+            </div>
+
+            <!-- Profile & About Section -->
+            <div class="profile-section">
+                <h2 class="title" style="font-size:26px;">Profile & About</h2>
+                <div class="admin-card">
+                    <h3>Update Profile Information</h3>
+                    <div class="row">
+                        <div><asp:TextBox ID="txtProfileName" runat="server" CssClass="input" placeholder="Your Name" /></div>
+                        <div><asp:TextBox ID="txtProfileRole" runat="server" CssClass="input" placeholder="Your Role (e.g., Android Developer)" /></div>
+                        <div><asp:TextBox ID="txtProfileEmail" runat="server" CssClass="input" placeholder="Email Address" /></div>
+                        <div><asp:TextBox ID="txtLinkedInUrl" runat="server" CssClass="input" placeholder="LinkedIn URL" /></div>
+                        <div><asp:TextBox ID="txtGithubUrl" runat="server" CssClass="input" placeholder="GitHub URL" /></div>
+                        <div class="col-2">
+                            <label>Profile Picture:</label><br />
+                            <asp:FileUpload ID="fuProfileImage" runat="server" CssClass="file-upload" accept="image/*" />
+                        </div>
+                        <div class="col-2">
+                            <label>About Page Picture:</label><br />
+                            <asp:FileUpload ID="fuAboutImage" runat="server" CssClass="file-upload" accept="image/*" />
+                        </div>
+                        <div class="col-2">
+                            <label>Resume/CV File:</label><br />
+                            <asp:FileUpload ID="fuResume" runat="server" CssClass="file-upload" accept=".pdf,.doc,.docx" />
+                        </div>
+                        <div class="col-2">
+                            <label>Experience Years:</label><br />
+                            <asp:TextBox ID="txtExperience" runat="server" CssClass="input" TextMode="MultiLine" Rows="3" placeholder="e.g., 2+ years in Development&#10;1+ year in SEO" />
+                        </div>
+                        <div class="col-2">
+                            <label>Education:</label><br />
+                            <asp:TextBox ID="txtEducation" runat="server" CssClass="input" placeholder="Your Education Background" />
+                        </div>
+                        <div class="col-2">
+                            <label>About Description:</label><br />
+                            <asp:TextBox ID="txtAboutDescription" runat="server" CssClass="input" TextMode="MultiLine" Rows="5" placeholder="Write about yourself..." />
+                        </div>
+                    </div>
+                    <div class="admin-actions">
+                        <asp:Button ID="btnUpdateProfile" runat="server" Text="Update Profile" CssClass="btn btn-color-1" OnClick="btnUpdateProfile_Click" />
+                    </div>
+                </div>
             </div>
 
             <h2 class="title" style="font-size:26px;margin-top:20px;">Projects</h2>

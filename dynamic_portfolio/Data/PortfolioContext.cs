@@ -11,5 +11,6 @@ namespace dynamic_portfolio.Data
         }
 
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
     }
 }
